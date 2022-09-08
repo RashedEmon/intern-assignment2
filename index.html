@@ -1,0 +1,145 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed&family=Poppins:wght@300&family=Raleway:ital,wght@0,100;0,200;0,400;1,100;1,200;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js" integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Travel</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="home">
+                <img src="./assets/menu.png" alt="icon" width="15px" height="15px"> <span>rent by owner</span>
+            </div>
+            <div id="menuButton">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="navigation" id="navigation-links">
+                <div>
+                    <span>Rental</span>
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+                <div>
+                    <span>Nearby</span>
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+                <div>
+                    <span>Destination</span>
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+                <button class="btn">Find a vacation rental</button>
+            </div>
+            
+            
+        </header>
+        <main class="main">
+            <div class="cover">
+                <img src="https://images.unsplash.com/photo-1608408843596-b3119736057c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1734&q=80" alt="cover image">
+                <div class="cover-caption">
+                    <h1>Journeys</h1>
+                    <h2>Stories From Around The World</h2>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+            <div class="article-container card col-3x">
+                <div class="articles" id="product">
+                    
+                </div>
+                <div class="pagination" id="paginate">
+                    <!-- <div class="page page-disable" id="previous"> &lt&ltPrevious</div>
+                    <div class="page page-active">1</div>
+                    <div class="page">2</div>
+                    <div class="page">3</div>
+                    <div class="page">4</div>
+                    <div class="page">5</div>
+                    <div class="page" id="next">Next&gt&gt</div>
+                    <div class="page" id="totalPage">Total Page: <span>20</span></div> -->
+                </div>
+            </div>
+            
+            <div class="categories">
+                <h2>Categories</h2>
+                <ul id="category">
+                    
+                </ul>
+            </div>
+            
+        </main>
+        <footer>
+            <div class="footer-container">
+                <div class="mt-1">
+                    <h3>Find a Place to Stay</h3>
+                    <ul>
+                        <li>All RBO Homes</li>
+                        <li>Vacation Rentals</li>
+                        <li>Cabins</li>
+                        <li>Condos</li>
+                        <li>Cottages</li>
+                        <li>Ski Chalets</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 id="invisible" style="visibility: hidden;">Find a Place to Stay</h4>
+                    <ul>
+                        <li>Timeshares</li>
+                        <li>RV Rentals</li>
+                        <li>Boat Rentals</li>
+                        <li>Villas</li>
+                        <li>Hotels</li>
+                        <li>Resorts</li>
+                    </ul>
+                </div>
+                <div class="mt-1">
+                    <div class="aboutus">
+                        <h3>About Us</h3>
+                        <ul>
+                            <li>About Rent by Owner</li>
+                            <li>Our Travel Journal</li>
+                        </ul>
+                    </div>
+                    <div class="mt-1 support">
+                        <h3>Support</h3>
+                        <ul>
+                            <li>FAQs</li>
+                            <li>List Your Property</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li>My Profile</li>
+                        <li>Site Map</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-foot">
+                <div>
+                    <i class="social-media fa-brands fa-facebook-f"></i>
+                    <i class="social-media fa-brands fa-instagram"></i>
+                    <i class="social-media fa-brands fa-twitter"></i>
+                </div>
+                <div>
+                    <span>Privacy Policy</span>
+                    <span>Site Terms</span>
+                </div>
+                <div style="visibility: hidden;">
+                    nothing to show
+                </div>
+                <div>
+                    <span>&copy 2022 Rent by Owner. All Rights Reserved</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+<script src="./index.js"> </script>
+</html>
