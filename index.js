@@ -14,74 +14,34 @@ let previousPage=0;
 // page=nextPage;
 let startPage=1;
 let endPage=5;
-
+let totalCategory=25;
 //shimmer: take a element as argument and apply shimmer effect in that element.
-const categoryShimmer=(element)=>{
-    element.innerHTML=`
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    <h2 class="shimmerBG content-line"></h2>
-    `
+const categoryShimmer=(element,numberOfShimmerElemnt)=>{
+    const shimmerStr=`<h2 class="shimmerBG content-line"></h2>`
+    let result=''
+    for(let i=0;i<numberOfShimmerElemnt;i++){
+        result+=shimmerStr
+    }
+    element.innerHTML= result
 }
-const productShimmer=(element)=>{
-    element.innerHTML=`
-                    <div class="shimmerBG media"></div>
-                    <div class="article-description">
-                        <h2 class="shimmerBG title-line"></h2>
-                        <h2 class="shimmerBG title-line end"></h2>
-                        <h4 class="shimmerBG content-line"></h4>
-                        <h5 class="shimmerBG content-line"></h5>
-                        <h4 class="shimmerBG content-line"></h4>
-                        <h5 class="shimmerBG content-line end"></h5>
-                    </div>
-
-                    <div class="shimmerBG"></div>
-                    <div class="article-description">
-                        <h2 class="shimmerBG title-line"></h2>
-                        <h2 class="shimmerBG title-line end"></h2>
-                        <h4 class="shimmerBG content-line"></h4>
-                        <h5 class="shimmerBG content-line"></h5>
-                        <h4 class="shimmerBG content-line"></h4>
-                        <h5 class="shimmerBG content-line end"></h5>
-                    </div>
-
-
-                    <div class="shimmerBG"></div>
-                    <div class="article-description">
-                        <h2 class="shimmerBG title-line"></h2>
-                        <h2 class="shimmerBG title-line end"></h2>
-                        <h4 class="shimmerBG content-line"></h4>
-                        <h5 class="shimmerBG content-line"></h5>
-                        <h4 class="shimmerBG content-line"></h4>
-                        <h5 class="shimmerBG content-line end"></h5>
-                    </div>
-                    <div class="shimmerBG"></div>
-                    <div class="article-description">
-                        <h2 class="shimmerBG title-line"></h2>
-                        <h2 class="shimmerBG title-line end"></h2>
-                        <h4 class="shimmerBG content-line"></h4>
-                        <h5 class="shimmerBG content-line"></h5>
-                        <h4 class="shimmerBG content-line"></h4>
-                        <h5 class="shimmerBG content-line end"></h5>
-                    </div>
-    `
+const productShimmer=(element,numberOfShimmerElemnt)=>{
+    const shimmerString=`
+    <div class="shimmerBG media"></div>
+        <div class="article-description">
+        <h2 class="shimmerBG title-line"></h2>
+        <h2 class="shimmerBG title-line end"></h2>
+        <h4 class="shimmerBG content-line"></h4>
+        <h5 class="shimmerBG content-line"></h5>
+        <h4 class="shimmerBG content-line"></h4>
+        <h5 class="shimmerBG content-line end"></h5>
+    </div>`
+    let result=''
+    
+    for(let i=0;i<numberOfShimmerElemnt;i++){
+        result+=shimmerString;
+    }
+    element.innerHTML=result;
+    
 }
 
 //callback function. when page event happend then this function will call.
@@ -115,7 +75,8 @@ const pageChange=(event)=>{
             limit: pageLimit,
             skip: skip,
         },
-        
+        preLoader: ()=> productShimmer(document.getElementById("product"),pageLimit),
+        postLoader: ()=> document.getElementById("product").innerHTML='',
         callBack: setProduct,
     });
 }
@@ -126,7 +87,6 @@ function queryBuilder(obj={}){
     if(Object.keys(obj).length === 0){
         return '';
     }
-    let query=''
     return Object.keys(obj).map(key=> `${key}=${obj[key]}`).join('&')
 }
 //it takes url and an object which contain(path,query object,callback,preLoader,postloader) and call the callBack function with json data.
@@ -135,23 +95,23 @@ function getData(url,{path='',query='',callBack,preLoader=undefined,postLoader=u
         preLoader();
     }
     fetch(`${url}${path?'/'+path: ''}${query?'?'+queryBuilder(query):''}`)
-    .then((res)=> {
-        // console.log(res.url)
+    .then((res)=>res.json())
+    .then((data)=>{
         if(postLoader){
-            postLoader();
-        } 
-        return res.json()
+            postLoader()
+        }
+        callBack(data)   
     })
-    .then((data)=> callBack(data))
     .catch((err)=> {
         if(postLoader){
-            postLoader();
+            postLoader()
         } 
         // console.log(err)
     });
 }
 //it takes data and set categories to category block
 const setCategories=(data)=>{
+    totalCategory=Object.keys(data).length;
     // console.log(data);
     document.getElementById("category").innerHTML= Object.keys(data).map((idx)=>{
         // let str="";
@@ -234,7 +194,7 @@ const setPagination=(totalItem)=>{
 
 getData(url,{
     path: "products/categories",
-    preLoader: ()=> categoryShimmer(document.getElementById("category")),
+    preLoader: ()=> categoryShimmer(document.getElementById("category"),totalCategory),
     callBack: setCategories,
 });
 
@@ -244,7 +204,8 @@ getData(url,{
         limit: pageLimit,
         skip: skip,
     },
-    preLoader: ()=> productShimmer(document.getElementById("product")),
+    preLoader: ()=> productShimmer(document.getElementById("product"),pageLimit),
+    postLoader: ()=> document.getElementById("product").innerHTML='',
     callBack: setProduct,
 });
 }
